@@ -14,11 +14,12 @@ users = {}
 LAST_USER = 0
 
 # Creates and adds user to dictionary
-def create_user:
+def create_user():
     global users
     global LAST_USER
     LAST_USER = LAST_USER + 1
-    users('contador/' + str(LAST_USER)) = 0
+    users['contador/' + str(LAST_USER)] = 0
+    return LAST_USER
 
 # Reverse counter
 def next_number():
