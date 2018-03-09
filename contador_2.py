@@ -18,7 +18,9 @@ def create_user():
     global users
     global LAST_USER
     LAST_USER = LAST_USER + 1
-    users['contador/' + str(LAST_USER)] = 0
+    users['/contador/' + str(LAST_USER)] = 0
+    print('DiccionARIO')
+    print(users)
     return LAST_USER
 
 # Reverse counter
@@ -42,10 +44,11 @@ def parse(received):
 
 # Process petition
 def process(request):
+    print(request)
     if request[0] == 'GET':
         if request[1] == '/contador':
-            user_id = create_user(request[1])
-            return('200 OK', "<a href=" + str(user_id) + ">Obtain your number</a>")
+            user_id = create_user()
+            return('200 OK', "<a href=/contador/" + str(user_id) + ">Obtain your number</a>")
         elif request[1] in users:
             return('200 OK',str(next_number(users(request[1]))))
         else:
