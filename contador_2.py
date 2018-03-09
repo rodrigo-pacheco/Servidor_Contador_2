@@ -10,9 +10,18 @@ SAT subject (Universidad Rey Juan Carlos)
 import socket
 
 NUMBER = 0
+users = {}
+LAST_USER = 0
+
+# Creates and adds user to dictionary
+def create_user:
+    global users
+    global LAST_USER
+    LAST_USER = LAST_USER + 1
+    users('contador/' + str(LAST_USER)) = 0
 
 # Reverse counter
-def nextnumber():
+def next_number():
     global NUMBER
     if NUMBER == 0:
         NUMBER = 5
@@ -34,7 +43,10 @@ def parse(received):
 def process(request):
     if request[0] == 'GET':
         if request[1] == '/contador':
-            return('200 OK',nextnumber())
+            user_id = create_user(request[1])
+            return('200 OK', "<a href=" + str(user_id) + ">Obtain your number</a>")
+        elif request[1] in users:
+            return('200 OK',str(next_number(users(request[1]))))
         else:
             return('404 Not Found' ,'Resource not found')
     else:
