@@ -24,9 +24,11 @@ def create_user():
 
 # Reverse counter
 def next_number(previous):
+    previous = int(previous)
     if previous == 0:
         return(str(5))
     else:
+        print(type(previous))
         current = previous -1
         return(str(current))
 
