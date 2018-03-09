@@ -12,6 +12,7 @@ import socket
 USERS = {}
 LAST_USER = 0
 
+
 # Creates and adds user to dictionary
 def create_user():
     global USERS
@@ -22,6 +23,7 @@ def create_user():
     print(USERS)
     return LAST_USER
 
+
 # Reverse counter
 def next_number(previous):
     previous = int(previous)
@@ -29,8 +31,9 @@ def next_number(previous):
         return(str(5))
     else:
         print(type(previous))
-        current = previous -1
+        current = previous - 1
         return(str(current))
+
 
 # Parse petition
 def parse(received):
@@ -40,6 +43,7 @@ def parse(received):
         return(method, resource)
     except:
         return('', '')
+
 
 # Process petition
 def process(request):
@@ -53,7 +57,7 @@ def process(request):
             USERS[request[1]] = counter
             return('200 OK', str(counter))
         else:
-            return('404 Not Found' ,'Resource not found')
+            return('404 Not Found', 'Resource not found')
     else:
         return('404 Not Found', 'Only answers to GET requests')
 
