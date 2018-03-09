@@ -9,29 +9,26 @@ SAT subject (Universidad Rey Juan Carlos)
 
 import socket
 
-NUMBER = 0
-users = {}
+USERS = {}
 LAST_USER = 0
 
 # Creates and adds user to dictionary
 def create_user():
-    global users
+    global USERS
     global LAST_USER
     LAST_USER = LAST_USER + 1
-    users['/contador/' + str(LAST_USER)] = 0
+    USERS['/contador/' + str(LAST_USER)] = 0
     print('DiccionARIO')
-    print(users)
+    print(USERS)
     return LAST_USER
 
 # Reverse counter
-def next_number():
-    global NUMBER
-    if NUMBER == 0:
-        NUMBER = 5
-        return(str(NUMBER))
+def next_number(previous):
+    if previous == 0:
+        return(str(5))
     else:
-        NUMBER = NUMBER -1
-        return(str(NUMBER))
+        current = previous -1
+        return(str(current))
 
 # Parse petition
 def parse(received):
@@ -44,13 +41,15 @@ def parse(received):
 
 # Process petition
 def process(request):
-    print(request)
+    global USERS
     if request[0] == 'GET':
         if request[1] == '/contador':
             user_id = create_user()
             return('200 OK', "<a href=/contador/" + str(user_id) + ">Obtain your number</a>")
-        elif request[1] in users:
-            return('200 OK',str(next_number(users(request[1]))))
+        elif request[1] in USERS:
+            counter = next_number(USERS[request[1]])
+            USERS[request[1]] = counter
+            return('200 OK', str(counter))
         else:
             return('404 Not Found' ,'Resource not found')
     else:
